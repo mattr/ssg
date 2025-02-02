@@ -9,6 +9,10 @@ class TestLeafNode(unittest.TestCase):
         with self.assertRaises(ValueError):
             node.to_html()
 
+    def test_to_html_with_blank_value(self):
+        node = LeafNode(None, "")
+        self.assertEqual("", node.to_html())
+
     def test_to_html_with_empty_tag(self):
         node = LeafNode(None, "some text")
         self.assertEqual("some text", node.to_html())
