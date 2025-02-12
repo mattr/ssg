@@ -12,4 +12,10 @@ class LeafNode(HTMLNode):
         if not self.tag:
             return self.value
 
+        if len(self.value) == 0:
+            """
+            Assume an empty value is a self-closing tag (we only have `img`)
+            """
+            return f"<{self.tag}{self.props_to_html()}/>"
+
         return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"

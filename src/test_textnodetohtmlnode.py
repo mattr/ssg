@@ -26,5 +26,5 @@ class TestTextNodeToHtmlNode(unittest.TestCase):
 
     def test_image_to_html(self):
         node = TextNode("some text", TextType.IMAGE, "https://example.com/image.png")
-        self.assertEqual('<img src="https://example.com/image.png" alt="some text"></img>',
+        self.assertEqual('<img src="https://example.com/image.png" alt="some text"/>',
                          text_node_to_html_node(node).to_html())
