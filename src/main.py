@@ -1,6 +1,9 @@
 import os
 import shutil
 
+from generatepage import generate_page
+
+
 def clean(target):
     if os.path.exists(target):
         shutil.rmtree(target)
@@ -30,5 +33,7 @@ def main():
     clean(target)
     create(target)
     copy(source, target)
+
+    generate_page("content/index.md", "template.html", "public/index.html")
 
 main()
