@@ -1,7 +1,7 @@
 import os
 import shutil
 
-from generatepage import generate_page
+from generatepage import generate_pages
 
 
 def clean(target):
@@ -34,6 +34,6 @@ def main():
     create(target)
     copy(source, target)
 
-    generate_page("content/index.md", "template.html", "public/index.html")
+    generate_pages("content", "template.html", "public")
 
 main()

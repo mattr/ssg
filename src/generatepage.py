@@ -4,9 +4,18 @@ from extracttitle import extract_title
 from markdowntohtmlnode import markdown_to_html_node
 
 
+def create_dir(path):
+    if not os.path.exists(path):
+        os.mkdir(path)
+
+
 def generate_page(from_path, template_path, to_path):
-    if not os.path.exists(to_path):
-        os.makedirs(to_path)
+    path_parts = to_path.split("/")[0:-1]
+    if len(path_parts) > 0:
+        for i in range(len(path_parts)):
+            path = "/".join(path_parts[0:i + 1])
+            print(f"making the path: {path}")
+            create_dir(path)
 
     with open(from_path, "r") as source:
         with open(template_path, "r") as template:
@@ -19,3 +28,14 @@ def generate_page(from_path, template_path, to_path):
                 html = html.replace("{{ Title }}", title)
                 html = html.replace("{{ Content }}", content)
                 target.write(html)
+
+
+def generate_pages(from_path, template_path, to_path):
+    for item in os.listdir(from_path):
+        current_path = f"{from_path}/{item}"
+        if os.path.isfile(current_path):
+            if item.endswith(".md"):
+                write_path = f"{to_path}/{item.replace(".md", ".html")}"
+                generate_page(current_path, template_path, write_path)
+        else:
+            generate_pages(current_path, template_path, f"{to_path}/{item}")
