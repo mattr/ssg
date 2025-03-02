@@ -1,5 +1,6 @@
 import os
 import shutil
+import sys
 
 from generatepage import generate_pages
 
@@ -25,6 +26,7 @@ def copy(source, target):
 
 
 def main():
+    base_path = sys.argv[1] if len(sys.argv) > 1 else "/"
     cwd = os.getcwd()
 
     source = os.path.join(cwd, "static")
@@ -34,6 +36,6 @@ def main():
     create(target)
     copy(source, target)
 
-    generate_pages("content", "template.html", "public")
+    generate_pages("content", "template.html", "public", base_path)
 
 main()
