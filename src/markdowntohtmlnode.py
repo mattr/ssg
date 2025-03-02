@@ -31,7 +31,10 @@ def create_list_item(text):
 
 def create_unordered_list(block):
     lines = block.split("\n")
-    list_items = list(map(lambda x: create_list_item(x.replace("* ", "", 1)), lines))
+    list_items = []
+    for line in lines:
+        text = re.match(r"\A[*\-] (.*)", line).group(1)
+        list_items.append(create_list_item(text))
     return ParentNode("ul", list_items)
 
 def create_ordered_list(block):
